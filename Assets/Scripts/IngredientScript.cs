@@ -22,10 +22,18 @@ public class IngredientScript : MonoBehaviour
 
             if (!hit) return;
 
-            if (hit && raycastHit.collider.transform.CompareTag("Interactable") || (raycastHit.collider.transform.parent != null && raycastHit.collider.transform.parent.CompareTag("Interactable")))
+            if (raycastHit.collider.transform.CompareTag("Interactable"))
             {
                 Debug.Log($"Object {raycastHit.collider.transform.name} is interactable");
+                targetObject = raycastHit.collider.gameObject;
             }
+            else if (raycastHit.collider.transform.parent != null && raycastHit.collider.transform.parent.CompareTag("Interactable"))
+            {
+                Debug.Log($"Object {raycastHit.collider.transform.name} is interactable");
+                targetObject = raycastHit.collider.transform.parent.gameObject;
+            }
+            
+            targetObject.transform.SetParent(cam.transform, true);
         }
     }
 }

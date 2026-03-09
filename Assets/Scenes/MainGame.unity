@@ -733,7 +733,7 @@ MonoBehaviour:
   diceBox: {fileID: 690263215}
   gasoline: {fileID: 919132147638969853}
   cam: {fileID: 15150698}
-  maxReach: 871
+  maxReach: 3
   targetObject: {fileID: 0}
 --- !u!1 &397983154
 GameObject:

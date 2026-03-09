@@ -14,15 +14,15 @@ public class IngredientScript : MonoBehaviour
     [SerializeField] float maxReach;
     [SerializeField] GameObject targetObject;
 
-    
-
     void Update()
     {
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             bool hit = Physics.Raycast(cam.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit raycastHit, maxReach);
 
-            if (hit && raycastHit.collider.transform.CompareTag("Interactable") || raycastHit.collider.transform.parent.CompareTag("Interactable"))
+            if (!hit) return;
+
+            if (hit && raycastHit.collider.transform.CompareTag("Interactable") || (raycastHit.collider.transform.parent != null && raycastHit.collider.transform.parent.CompareTag("Interactable")))
             {
                 Debug.Log($"Object {raycastHit.collider.transform.name} is interactable");
             }

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,48 +20,53 @@ public class IngredientScript : MonoBehaviour
 
     void Update()
     {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current != null && !Mouse.current.leftButton.wasPressedThisFrame) return;
+
+        if (!holdingItem)
         {
-            if (!holdingItem)
-            {
-                bool hit = Physics.Raycast(cam.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit raycastHit, maxReach);
-
-                if (!hit) return;
-
-                if (raycastHit.collider.transform.CompareTag("Interactable"))
-                {
-                    Debug.Log($"Object {raycastHit.collider.transform.name} is interactable");
-                    targetObject = raycastHit.collider.gameObject;
-                }
-                else if (raycastHit.collider.transform.parent != null && raycastHit.collider.transform.parent.CompareTag("Interactable"))
-                {
-                    Debug.Log($"Object {raycastHit.collider.transform.name} is interactable");
-                    targetObject = raycastHit.collider.transform.parent.gameObject;
-                }
-
-                else return;
-                
-                targetObject.GetComponent<Rigidbody>().useGravity = false;
-                targetObject.transform.SetParent(cam.transform, true);
-                holdingItem = true;
-                StartCoroutine(HoldObject());
-            }
-            else
-            {
-                targetObject.transform.SetParent(null, true);
-                targetObject.GetComponent<Rigidbody>().useGravity = true;
-                holdingItem = false;
-            }
+            TryObjPickup();
+        }
+        else
+        {
+            DropObj();
         }
     }
 
-    IEnumerator HoldObject()
+    void FixedUpdate()
     {
-        while (holdingItem)
+        if (holdingItem)
         {
-            yield return new WaitForEndOfFrame();
+            Rigidbody targetRigidbody = targetObject.GetComponent<Rigidbody>();
 
-            targetObject.transform.position = Vector3.MoveTowards(targetObject.transform.position, objCarryPoint.position, distDelta);
+            targetRigidbody.MovePosition(objCarryPoint.position);
+            targetRigidbody.MoveRotation(objCarryPoint.rotation);
         }
+    }
+
+    void TryObjPickup()
+    {
+        if (!Physics.Raycast(cam.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hitInfo, maxReach)) return;
+
+        if (hitInfo.collider.transform.CompareTag("Interactable"))
+        {
+            targetObject = hitInfo.collider.gameObject;
+        }
+        else if (hitInfo.collider.transform.parent && hitInfo.collider.transform.parent.CompareTag("Interactable"))
+        {
+            targetObject = hitInfo.collider.transform.parent.gameObject;
+        }
+        
+        else return;
+        
+        targetObject.GetComponent<Rigidbody>().useGravity = false;
+        targetObject.transform.SetParent(objCarryPoint, true);
+        holdingItem = true;
+    }
+
+    void DropObj()
+    {
+        targetObject.transform.SetParent(null, true);
+        targetObject.GetComponent<Rigidbody>().useGravity = true;
+        holdingItem = false;
     }
 }

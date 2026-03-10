@@ -36,6 +36,8 @@ public class IngredientScript : MonoBehaviour
                     Debug.Log($"Object {raycastHit.collider.transform.name} is interactable");
                     targetObject = raycastHit.collider.transform.parent.gameObject;
                 }
+
+                else return;
                 
                 targetObject.GetComponent<Rigidbody>().useGravity = false;
                 targetObject.transform.SetParent(cam.transform, true);

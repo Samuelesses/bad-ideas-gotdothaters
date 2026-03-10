@@ -13,6 +13,8 @@ public class IngredientScript : MonoBehaviour
     [Header("---- Interaction Variables ----")]
     [SerializeField] Camera cam;
     [SerializeField] float maxReach;
+    [SerializeField] float distDelta;
+    [SerializeField] Transform objCarryPoint;
     [SerializeField] GameObject targetObject;
 
     private bool holdingItem = false;
@@ -60,7 +62,7 @@ public class IngredientScript : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
 
-            targetObject.transform.GetComponent<Rigidbody>().linearVelocity = transform.GetComponent<Rigidbody>().linearVelocity;
+            targetObject.transform.position = Vector3.MoveTowards(targetObject.transform.position, objCarryPoint.position, distDelta);
         }
     }
 }

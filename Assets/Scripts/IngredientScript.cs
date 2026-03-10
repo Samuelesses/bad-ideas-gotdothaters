@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,6 +43,7 @@ public class IngredientScript : MonoBehaviour
                 targetObject.GetComponent<Rigidbody>().useGravity = false;
                 targetObject.transform.SetParent(cam.transform, true);
                 holdingItem = true;
+                StartCoroutine(HoldObject());
             }
             else
             {
@@ -49,6 +51,16 @@ public class IngredientScript : MonoBehaviour
                 targetObject.GetComponent<Rigidbody>().useGravity = true;
                 holdingItem = false;
             }
+        }
+    }
+
+    IEnumerator HoldObject()
+    {
+        while (holdingItem)
+        {
+            yield return new WaitForEndOfFrame();
+
+            targetObject.transform.GetComponent<Rigidbody>().linearVelocity = transform.GetComponent<Rigidbody>().linearVelocity;
         }
     }
 }

@@ -766,7 +766,8 @@ MonoBehaviour:
   gasoline: {fileID: 919132147638969853}
   cam: {fileID: 15150698}
   maxReach: 3
-  distDelta: 5
+  carryPositionSpeed: 5
+  carryRotationSpeed: 5
   objCarryPoint: {fileID: 218610153}
   targetObject: {fileID: 0}
 --- !u!1 &397983154
@@ -1531,7 +1532,7 @@ GameObject:
   - component: {fileID: 885915181}
   m_Layer: 0
   m_Name: Cube (5)
-  m_TagString: Untagged
+  m_TagString: IgnoreCollisionsOnPickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2035,7 +2036,7 @@ GameObject:
   - component: {fileID: 1358919475}
   m_Layer: 6
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: IgnoreCollisionsOnPickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

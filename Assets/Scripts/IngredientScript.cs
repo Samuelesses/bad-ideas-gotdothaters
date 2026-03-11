@@ -12,10 +12,13 @@ public class IngredientScript : MonoBehaviour
     [Header("---- Interaction Variables ----")]
     [SerializeField] Camera cam;
     [SerializeField] float maxReach;
-    [SerializeField] float distDelta;
+    [SerializeField] float carryPositionSpeed;
+    [SerializeField] float carryRotationSpeed;
     [SerializeField] Transform objCarryPoint;
     [SerializeField] GameObject targetObject;
 
+    private Rigidbody targetRigidBody;
+    private Collider targetCollider;
     private bool holdingItem = false;
 
     void Update()
@@ -33,15 +36,16 @@ public class IngredientScript : MonoBehaviour
     }
 
     void FixedUpdate()
+{
+    if (holdingItem && targetRigidBody != null)
     {
-        if (holdingItem)
-        {
-            Rigidbody targetRigidbody = targetObject.GetComponent<Rigidbody>();
+        Vector3 newPosition = Vector3.Lerp(targetRigidBody.position, objCarryPoint.position, carryPositionSpeed * Time.fixedDeltaTime);
+        Quaternion newRotation = Quaternion.Slerp(targetRigidBody.rotation, objCarryPoint.rotation, carryRotationSpeed * Time.fixedDeltaTime);
 
-            targetRigidbody.MovePosition(objCarryPoint.position);
-            targetRigidbody.MoveRotation(objCarryPoint.rotation);
-        }
+        targetRigidBody.MovePosition(newPosition);
+        targetRigidBody.MoveRotation(newRotation);
     }
+}
 
     void TryObjPickup()
     {
@@ -55,18 +59,39 @@ public class IngredientScript : MonoBehaviour
         {
             targetObject = hitInfo.collider.transform.parent.gameObject;
         }
-        
         else return;
-        
-        targetObject.GetComponent<Rigidbody>().useGravity = false;
-        targetObject.transform.SetParent(objCarryPoint, true);
+
+        targetRigidBody = targetObject.GetComponent<Rigidbody>();
+        if (targetRigidBody == null) return;
+
+        targetRigidBody.useGravity = false;
+        targetRigidBody.linearDamping = 10f;
+        targetRigidBody.angularDamping = 10f;
+
+        targetCollider = targetObject.GetComponent<Collider>();
+        if (!targetCollider) targetCollider = targetObject.GetComponentInChildren<Collider>();
+
+        Physics.IgnoreCollision(targetCollider, transform.GetComponentInChildren<Collider>(), true);
+
         holdingItem = true;
     }
 
     void DropObj()
     {
-        targetObject.transform.SetParent(null, true);
-        targetObject.GetComponent<Rigidbody>().useGravity = true;
+        if (targetRigidBody == null) return;
+
+        targetRigidBody.useGravity = true;
+        targetRigidBody.linearDamping = 0f;
+        targetRigidBody.angularDamping = 0.05f;
+
+        targetCollider = targetObject.GetComponent<Collider>();
+        if (!targetCollider) targetCollider = targetObject.GetComponentInChildren<Collider>();
+
+        Physics.IgnoreCollision(targetCollider, transform.GetComponentInChildren<Collider>(), false);
+
         holdingItem = false;
+        targetRigidBody = null;
+        targetObject = null;
+        targetCollider = null;
     }
 }

@@ -575,8 +575,8 @@ Transform:
   m_GameObject: {fileID: 218610152}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.645}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.65}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 15150694}
@@ -768,6 +768,9 @@ MonoBehaviour:
   maxReach: 3
   carryPositionSpeed: 5
   carryRotationSpeed: 5
+  scrollSpeed: 0.4
+  minScroll: 1
+  maxScroll: 2
   objCarryPoint: {fileID: 218610153}
   targetObject: {fileID: 0}
 --- !u!1 &397983154

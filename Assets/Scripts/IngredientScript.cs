@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,9 @@ public class IngredientScript : MonoBehaviour
     [SerializeField] float maxReach;
     [SerializeField] float carryPositionSpeed;
     [SerializeField] float carryRotationSpeed;
+    [SerializeField] float scrollSpeed;
+    [SerializeField] float minScroll;
+    [SerializeField] float maxScroll;
     [SerializeField] Transform objCarryPoint;
     [SerializeField] GameObject targetObject;
 
@@ -23,6 +27,15 @@ public class IngredientScript : MonoBehaviour
 
     void Update()
     {
+        float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
+
+        if (scrollDelta != 0f)
+        {
+            objCarryPoint.localPosition += Vector3.forward * scrollSpeed * Mathf.Sign(scrollDelta);
+
+            objCarryPoint.localPosition = new Vector3(0, 0, Mathf.Clamp(objCarryPoint.localPosition.z, minScroll, maxScroll));
+        }
+
         if (Mouse.current != null && !Mouse.current.leftButton.wasPressedThisFrame) return;
 
         if (!holdingItem)

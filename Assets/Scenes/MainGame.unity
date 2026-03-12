@@ -771,6 +771,8 @@ MonoBehaviour:
   scrollSpeed: 0.4
   minScroll: 1
   maxScroll: 2
+  rotationSensitivity: 250
+  minMouseMove: 3
   objCarryPoint: {fileID: 218610153}
   targetObject: {fileID: 0}
 --- !u!1 &397983154

@@ -18,9 +18,10 @@ public class IngredientScript : MonoBehaviour
     [SerializeField] float scrollSpeed;
     [SerializeField] float minScroll;
     [SerializeField] float maxScroll;
+    [SerializeField] float rotationSensitivity;
     [SerializeField] Transform objCarryPoint;
     [SerializeField] GameObject targetObject;
-
+    
     private Rigidbody targetRigidBody;
     private Collider targetCollider;
     private bool holdingItem = false;
@@ -32,7 +33,6 @@ public class IngredientScript : MonoBehaviour
         if (scrollDelta != 0f)
         {
             objCarryPoint.localPosition += Vector3.forward * scrollSpeed * Mathf.Sign(scrollDelta);
-
             objCarryPoint.localPosition = new Vector3(0, 0, Mathf.Clamp(objCarryPoint.localPosition.z, minScroll, maxScroll));
         }
 
@@ -49,16 +49,25 @@ public class IngredientScript : MonoBehaviour
     }
 
     void FixedUpdate()
-{
-    if (holdingItem && targetRigidBody != null)
     {
-        Vector3 newPosition = Vector3.Lerp(targetRigidBody.position, objCarryPoint.position, carryPositionSpeed * Time.fixedDeltaTime);
-        Quaternion newRotation = Quaternion.Slerp(targetRigidBody.rotation, objCarryPoint.rotation, carryRotationSpeed * Time.fixedDeltaTime);
+        if (Mouse.current != null && Input.GetMouseButton(1))
+        {
+            Debug.Log("PRESSED");
+            float moveX = (Input.GetAxis("Mouse X") * rotationSensitivity * Time.fixedDeltaTime) + objCarryPoint.localEulerAngles.x;
+            float moveY = (Input.GetAxis("Mouse Y") * rotationSensitivity * Time.fixedDeltaTime) + objCarryPoint.localEulerAngles.y;
 
-        targetRigidBody.MovePosition(newPosition);
-        targetRigidBody.MoveRotation(newRotation);
+            objCarryPoint.localRotation = Quaternion.Euler(moveY, moveX, 0);
+        }
+
+        if (holdingItem && targetRigidBody != null)
+        {
+            Vector3 newPosition = Vector3.Lerp(targetRigidBody.position, objCarryPoint.position, carryPositionSpeed * Time.fixedDeltaTime);
+            Quaternion newRotation = Quaternion.Slerp(targetRigidBody.rotation, objCarryPoint.rotation, carryRotationSpeed * Time.fixedDeltaTime);
+
+            targetRigidBody.MovePosition(newPosition);
+            targetRigidBody.MoveRotation(newRotation);
+        }
     }
-}
 
     void TryObjPickup()
     {

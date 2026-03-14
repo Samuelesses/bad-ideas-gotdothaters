@@ -30,7 +30,6 @@ public class IngredientScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(carryPositionSpeed);
         float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
 
         if (scrollDelta != 0f)
@@ -60,7 +59,6 @@ public class IngredientScript : MonoBehaviour
 
         if (Mouse.current != null && Input.GetMouseButton(1))
         {
-            Debug.Log("PRESSED");
             float moveX = (Input.GetAxis("Mouse X") * rotationSensitivity * Time.fixedDeltaTime) + objCarryPoint.localEulerAngles.x;
             float moveY = (Input.GetAxis("Mouse Y") * rotationSensitivity * Time.fixedDeltaTime) + objCarryPoint.localEulerAngles.y;
 

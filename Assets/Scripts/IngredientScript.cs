@@ -110,6 +110,8 @@ public class IngredientScript : MonoBehaviour
         targetRigidBody = targetObject.GetComponent<Rigidbody>();
         if (targetRigidBody == null) return;
 
+        objCarryPoint.rotation = targetRigidBody.rotation;
+
         targetRigidBody.useGravity = false;
         targetRigidBody.linearDamping = 10f;
         targetRigidBody.angularDamping = 10f;

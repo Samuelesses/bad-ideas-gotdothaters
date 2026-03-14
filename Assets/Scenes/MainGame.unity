@@ -735,6 +735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   orientation: {fileID: 1466490631}
   moveSpeed: 7
+  ingredientScript: {fileID: 291914132}
   groundDrag: 5
   bounceStrength: 15
   bounceCooldown: 4
@@ -766,13 +767,12 @@ MonoBehaviour:
   gasoline: {fileID: 919132147638969853}
   cam: {fileID: 15150698}
   maxReach: 3
-  carryPositionSpeed: 5
   carryRotationSpeed: 5
   scrollSpeed: 0.4
   minScroll: 1
   maxScroll: 2
   rotationSensitivity: 250
-  minMouseMove: 3
+  playerRigidBody: {fileID: 291914130}
   objCarryPoint: {fileID: 218610153}
   targetObject: {fileID: 0}
 --- !u!1 &397983154

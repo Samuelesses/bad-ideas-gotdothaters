@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     public float moveSpeed;
 
+    public IngredientScript ingredientScript;
+
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
@@ -85,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 dashDirection = orientation.forward;
         rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
+        ingredientScript.UpdatePositionSpeed(100f);
 
         StartCoroutine(StopDash());
         StartCoroutine(DashCooldown());
@@ -168,5 +171,6 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+        ingredientScript.UpdatePositionSpeed(0);
     }
 }

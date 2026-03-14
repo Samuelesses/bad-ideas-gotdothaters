@@ -1,4 +1,4 @@
-using Unity.Mathematics;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,14 +13,16 @@ public class IngredientScript : MonoBehaviour
     [Header("---- Interaction Variables ----")]
     [SerializeField] Camera cam;
     [SerializeField] float maxReach;
-    [SerializeField] float carryPositionSpeed;
     [SerializeField] float carryRotationSpeed;
     [SerializeField] float scrollSpeed;
     [SerializeField] float minScroll;
     [SerializeField] float maxScroll;
     [SerializeField] float rotationSensitivity;
+    [SerializeField] Rigidbody playerRigidBody;
     [SerializeField] Transform objCarryPoint;
     [SerializeField] GameObject targetObject;
+
+    [NonSerialized] public float carryPositionSpeed = 5f;
     
     private Rigidbody targetRigidBody;
     private Collider targetCollider;
@@ -28,6 +30,7 @@ public class IngredientScript : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(carryPositionSpeed);
         float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
 
         if (scrollDelta != 0f)
@@ -50,6 +53,11 @@ public class IngredientScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (carryPositionSpeed <= 10f)
+        {
+            UpdatePositionSpeed(0);
+        }
+
         if (Mouse.current != null && Input.GetMouseButton(1))
         {
             Debug.Log("PRESSED");
@@ -66,6 +74,24 @@ public class IngredientScript : MonoBehaviour
 
             targetRigidBody.MovePosition(newPosition);
             targetRigidBody.MoveRotation(newRotation);
+        }
+    }
+
+    public void UpdatePositionSpeed(float magnitude)
+    {
+        if (magnitude != 0)
+        {
+            carryPositionSpeed = magnitude;
+            return;
+        }
+
+        if (playerRigidBody.linearVelocity.magnitude > 1f)
+        {
+            carryPositionSpeed = 10f;
+        }
+        else
+        {
+            carryPositionSpeed = 5f;
         }
     }
 

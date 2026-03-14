@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class IngredientScript : MonoBehaviour
 {
     [Header("---- Ingredient Containers ----")]
+    public GameObject itemContainer;
     public GameObject diePrefab;
     public GameObject nailPrefab;
     public GameObject batteryPrefab;
@@ -106,27 +107,24 @@ public class IngredientScript : MonoBehaviour
         }
         else if (hitInfo.transform.CompareTag("Container"))
         {
-            GameObject targetPrefab;
+            Transform spawnPoint;
+            string targetPrefab;
 
-            if (hitInfo.transform.name == "DiceBox" || hitInfo.transform.parent != null && hitInfo.transform.parent.name == "DiceBox")
-                targetPrefab = diePrefab;
-            else if (hitInfo.transform.name == "NailBox" || hitInfo.transform.parent != null &&  hitInfo.transform.parent.name == "NailBox")
-                targetPrefab = nailPrefab;
-            else if (hitInfo.transform.name == "BatteryBox" || hitInfo.transform.parent != null &&  hitInfo.transform.parent.name == "BatteryBox")
-                targetPrefab = batteryPrefab;
-
-            else return;
-
-            targetPrefab = Instantiate(targetPrefab);
-            
-            try
+            if (hitInfo.transform.parent == null)
             {
-                targetPrefab.transform.position = hitInfo.transform.Find("SpawnPoint").position;
+                spawnPoint = hitInfo.transform.Find("SpawnPoint");
+                targetPrefab = hitInfo.transform.name[..^3];
             }
-            catch
+            else
             {
-                targetPrefab.transform.position = hitInfo.transform.parent.Find("SpawnPoint").position;
+                spawnPoint = hitInfo.transform.parent.Find("SpawnPoint");
+                targetPrefab = hitInfo.transform.parent.name[..^3];
             }
+
+            Debug.Log(targetPrefab);
+
+            GameObject newObject = Instantiate(itemContainer.transform.Find(targetPrefab).gameObject);
+            newObject.transform.position = spawnPoint.transform.position;
 
             return;
         }

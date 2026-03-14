@@ -7,6 +7,8 @@ TagManager:
   - Interactable
   - IgnoreCollisionsOnPickup
   - Container
+  - TopBun
+  - CompletedBurger
   layers:
   - Default
   - TransparentFX

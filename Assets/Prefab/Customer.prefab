@@ -131,9 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   foodNames:
   - Burger
-  - Pizza
-  - Pasta
-  - Fish & Chips
   textComponent: {fileID: 2187576717155006127}
 --- !u!1 &5879943322631864183
 GameObject:

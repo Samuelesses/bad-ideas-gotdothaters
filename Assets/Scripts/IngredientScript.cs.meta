@@ -1,2 +1,18 @@
 fileFormatVersion: 2
 guid: d13962049ef50484182e90df1f0453f9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - batteryBox: {instanceID: 0}
+  - nailBox: {instanceID: 0}
+  - diceBox: {fileID: 919132149155446097, guid: b0e9bb2740750cb40a0b14ed2e40530b, type: 3}
+  - gasoline: {fileID: 919132149155446097, guid: b90c4f4629808654fb54ecf6ee37b697, type: 3}
+  - cam: {instanceID: 0}
+  - objCarryPoint: {instanceID: 0}
+  - targetObject: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

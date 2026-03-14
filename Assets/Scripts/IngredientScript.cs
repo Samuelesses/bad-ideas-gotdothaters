@@ -97,6 +97,10 @@ public class IngredientScript : MonoBehaviour
     {
         if (!Physics.Raycast(cam.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hitInfo, maxReach)) return;
 
+        Debug.Log("Raycast hit: " + hitInfo.collider.gameObject.name);
+
+        if (hitInfo.collider.GetComponent<Rigidbody>() == null) return;
+
         if (hitInfo.collider.transform.CompareTag("Interactable"))
         {
             targetObject = hitInfo.collider.gameObject;
@@ -124,7 +128,7 @@ public class IngredientScript : MonoBehaviour
         holdingItem = true;
     }
 
-    void DropObj()
+    public void DropObj()
     {
         if (targetRigidBody == null) return;
 

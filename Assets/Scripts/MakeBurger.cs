@@ -30,9 +30,13 @@ public class MakeBurger : MonoBehaviour
     private GameObject currentMeat;
     private GameObject currentBottomBun;
 
+    private IngredientScript ingredientScript;
+
     private void Start()
     {
         completeBurger.SetActive(false);
+        ingredientScript = FindFirstObjectByType<IngredientScript>();
+        transform.rotation = Quaternion.Euler(-90, 0, 0);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -72,6 +76,7 @@ public class MakeBurger : MonoBehaviour
         }
 
         CheckForCompleteBurger();
+        
     }
 
     private void OnTriggerExit(Collider other)
@@ -110,7 +115,7 @@ public class MakeBurger : MonoBehaviour
             currentBottomBun = null;
         }
 
-        if (completeBurger.activeSelf)
+        if (completeBurger != null && completeBurger.activeSelf)
         {
             completeBurger.SetActive(false);
         }
@@ -120,16 +125,18 @@ public class MakeBurger : MonoBehaviour
     {
         if (TopBunPresent && SaladPresent && CheesePresent && TomatoPresent && MeatPresent && BottomBunPresent)
         {
-            // Hide the actual ingredient objects that were placed
-            if (currentTopBun != null) currentTopBun.SetActive(false);
-            if (currentSalad != null) currentSalad.SetActive(false);
-            if (currentCheese != null) currentCheese.SetActive(false);
-            if (currentTomato != null) currentTomato.SetActive(false);
-            if (currentMeat != null) currentMeat.SetActive(false);
-            if (currentBottomBun != null) currentBottomBun.SetActive(false);
-
+            if (currentTopBun != null) { Destroy(currentTopBun); currentTopBun = null; }
+            if (currentSalad != null) { Destroy(currentSalad); currentSalad = null; }
+            if (currentCheese != null) { Destroy(currentCheese); currentCheese = null; }
+            if (currentTomato != null) { Destroy(currentTomato); currentTomato = null; }
+            if (currentMeat != null) { Destroy(currentMeat); currentMeat = null; }
+            if (currentBottomBun != null) { Destroy(currentBottomBun); currentBottomBun = null; }
+            ingredientScript.DropObj();
             completeBurger.SetActive(true);
+            completeBurger.tag = "CompletedBurger";
             burgerCompleted = true;
         }
     }
+
+    
 }

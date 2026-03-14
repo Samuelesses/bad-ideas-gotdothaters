@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8302599126713313052}
   - component: {fileID: 4203630825402636910}
   - component: {fileID: 8688157499909038940}
+  - component: {fileID: 2592484907326353477}
+  - component: {fileID: 8058464204789908983}
   m_Layer: 0
   m_Name: Customer
   m_TagString: Untagged
@@ -132,6 +134,39 @@ MonoBehaviour:
   foodNames:
   - Burger
   textComponent: {fileID: 2187576717155006127}
+--- !u!65 &2592484907326353477
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4047402918447601141}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0430773, y: 1.221457, z: 1.9975252}
+  m_Center: {x: -0.021538602, y: -0.3892715, z: -1.5045351}
+--- !u!114 &8058464204789908983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4047402918447601141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd82f3af8c9053744bffa870737c2d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &5879943322631864183
 GameObject:
   m_ObjectHideFlags: 0

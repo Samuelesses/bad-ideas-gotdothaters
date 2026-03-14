@@ -5,10 +5,9 @@ using UnityEngine.InputSystem;
 public class IngredientScript : MonoBehaviour
 {
     [Header("---- Ingredient Containers ----")]
-    public GameObject batteryBox;
-    public GameObject nailBox;
-    public GameObject diceBox;
-    public GameObject gasoline;
+    public GameObject diePrefab;
+    public GameObject nailPrefab;
+    public GameObject batteryPrefab;
 
     [Header("---- Interaction Variables ----")]
     [SerializeField] Camera cam;
@@ -104,6 +103,32 @@ public class IngredientScript : MonoBehaviour
         else if (hitInfo.collider.transform.parent && hitInfo.collider.transform.parent.CompareTag("Interactable"))
         {
             targetObject = hitInfo.collider.transform.parent.gameObject;
+        }
+        else if (hitInfo.transform.CompareTag("Container"))
+        {
+            GameObject targetPrefab;
+
+            if (hitInfo.transform.name == "DiceBox" || hitInfo.transform.parent != null && hitInfo.transform.parent.name == "DiceBox")
+                targetPrefab = diePrefab;
+            else if (hitInfo.transform.name == "NailBox" || hitInfo.transform.parent != null &&  hitInfo.transform.parent.name == "NailBox")
+                targetPrefab = nailPrefab;
+            else if (hitInfo.transform.name == "BatteryBox" || hitInfo.transform.parent != null &&  hitInfo.transform.parent.name == "BatteryBox")
+                targetPrefab = batteryPrefab;
+
+            else return;
+
+            targetPrefab = Instantiate(targetPrefab);
+            
+            try
+            {
+                targetPrefab.transform.position = hitInfo.transform.Find("SpawnPoint").position;
+            }
+            catch
+            {
+                targetPrefab.transform.position = hitInfo.transform.parent.Find("SpawnPoint").position;
+            }
+
+            return;
         }
         else return;
 

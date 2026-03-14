@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - IgnoreCollisionsOnPickup
+  - Container
   - TopBun
   - CompletedBurger
   layers:

@@ -7,7 +7,7 @@ public class MakeBurger : MonoBehaviour
     [SerializeField] private string saladName = "Salad";
     [SerializeField] private string cheeseName = "Cheese";
     [SerializeField] private string tomatoName = "Tomato";
-    [SerializeField] private string meatName = "Meat";
+    [SerializeField] private string meatName = "CookedMeat";
     [SerializeField] private string bottomBunName = "BottomBun";
 
     [Header("---- Complete Burger ----")]
@@ -36,7 +36,6 @@ public class MakeBurger : MonoBehaviour
     {
         completeBurger.SetActive(false);
         ingredientScript = FindFirstObjectByType<IngredientScript>();
-        transform.rotation = Quaternion.Euler(-90, 0, 0);
     }
 
     private void OnTriggerEnter(Collider other)

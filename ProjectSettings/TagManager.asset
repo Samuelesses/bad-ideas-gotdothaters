@@ -8,6 +8,7 @@ TagManager:
   - IgnoreCollisionsOnPickup
   - TopBun
   - CompletedBurger
+  - Container
   layers:
   - Default
   - TransparentFX

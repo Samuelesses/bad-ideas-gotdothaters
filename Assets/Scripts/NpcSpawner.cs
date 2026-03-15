@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class NpcSpawner : MonoBehaviour
@@ -77,7 +78,7 @@ public class NpcSpawner : MonoBehaviour
         
         if (ordersCompleted >= totalOrders)
         {
-            Debug.Log("Game Won!");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

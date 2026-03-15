@@ -4,11 +4,7 @@ using UnityEngine.InputSystem;
 
 public class IngredientScript : MonoBehaviour
 {
-    [Header("---- Ingredient Containers ----")]
-    public GameObject batteryBox;
-    public GameObject nailBox;
-    public GameObject diceBox;
-    public GameObject gasoline;
+    public Transform itemsContainer;
 
     [Header("---- Interaction Variables ----")]
     [SerializeField] Camera cam;
@@ -99,8 +95,6 @@ public class IngredientScript : MonoBehaviour
 
         Debug.Log("Raycast hit: " + hitInfo.collider.gameObject.name);
 
-        if (hitInfo.collider.GetComponent<Rigidbody>() == null) return;
-
         if (hitInfo.collider.transform.CompareTag("Interactable"))
         {
             targetObject = hitInfo.collider.gameObject;
@@ -108,6 +102,29 @@ public class IngredientScript : MonoBehaviour
         else if (hitInfo.collider.transform.parent && hitInfo.collider.transform.parent.CompareTag("Interactable"))
         {
             targetObject = hitInfo.collider.transform.parent.gameObject;
+        }
+        else if (hitInfo.transform.CompareTag("Container"))
+        {
+            Transform spawnPoint;
+            string targetPrefab;
+
+            if (hitInfo.transform.parent != null)
+            {
+                spawnPoint = hitInfo.transform.parent.Find("SpawnPoint");
+                targetPrefab = hitInfo.transform.parent.name[..^3];
+            }
+            else
+            {
+                spawnPoint = hitInfo.transform.Find("SpawnPoint");
+                targetPrefab = hitInfo.transform.name[..^3];
+            }
+
+            Debug.Log(targetPrefab);
+
+            Transform newObject = Instantiate(itemsContainer.Find(targetPrefab));
+            newObject.position = spawnPoint.position;
+
+            return;
         }
         else return;
 

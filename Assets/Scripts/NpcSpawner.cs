@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 
 public class NpcSpawner : MonoBehaviour
 {
@@ -13,12 +15,15 @@ public class NpcSpawner : MonoBehaviour
     public float moveSpeed = 1.5f;
     public GameObject platePrefab;
     public Transform plateSpawnPoint;
+    public int totalOrders = 10;
+    private int ordersCompleted = 0;
+    public TMP_Text completedOrdersText;
 
     private List<GameObject> npcs = new List<GameObject>();
 
     void Start()
     {
-        
+        UpdateScoreUI();
     }
 
     void Update()
@@ -56,13 +61,23 @@ public class NpcSpawner : MonoBehaviour
             {
                 npc.transform.Translate(0, 0, -1.5f);
             }
-
-
+            ordersCompleted++;
+            UpdateScoreUI();
         }
     }
     public void SpawnNewPlate()
     {
         Quaternion spawnRotation = Quaternion.Euler(-90, 0, 0);
         GameObject newPlate = Instantiate(platePrefab, plateSpawnPoint.position, spawnRotation);
+    }
+
+    private void UpdateScoreUI()
+    {
+        completedOrdersText.text = ordersCompleted + " / " + totalOrders;
+        
+        if (ordersCompleted >= totalOrders)
+        {
+            Debug.Log("Game Won!");
+        }
     }
 }

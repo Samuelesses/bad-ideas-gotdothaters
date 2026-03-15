@@ -7,23 +7,34 @@ public class OrderComplete : MonoBehaviour
     private IngredientScript ingredientScript;
 
 
-    void Awake()
-    {
-        npcSpawner = FindFirstObjectByType<NpcSpawner>();
-        makeBurger = FindFirstObjectByType<MakeBurger>();
-        ingredientScript = FindFirstObjectByType<IngredientScript>();
-    }
+        void Awake()
+        {
+            npcSpawner = FindFirstObjectByType<NpcSpawner>();
+            makeBurger = FindFirstObjectByType<MakeBurger>();
+            ingredientScript = FindFirstObjectByType<IngredientScript>();
+        }
 
-    void OnTriggerEnter(Collider other)
-    {
+        void OnTriggerEnter(Collider other)
+        {   
         if (other.CompareTag("CompletedBurger"))
         {
             Debug.Log("Order Complete!");
+
             ingredientScript.DropObj();
-            Destroy(makeBurger.gameObject);
+            MakeBurger currentBurger = other.GetComponent<MakeBurger>();
+            if (currentBurger == null) currentBurger = other.GetComponentInParent<MakeBurger>();
+
             npcSpawner.CompleteOrder();
             npcSpawner.SpawnNewPlate();
-            Destroy(other.gameObject);
+
+            if (currentBurger != null)
+            {
+                Destroy(currentBurger.gameObject);
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 }

@@ -20,9 +20,9 @@ public class OrderComplete : MonoBehaviour
         {
             Debug.Log("Order Complete!");
             ingredientScript.DropObj();
+            Destroy(makeBurger.gameObject);
             npcSpawner.CompleteOrder();
             npcSpawner.SpawnNewPlate();
-            Destroy(makeBurger.gameObject);
             Destroy(other.gameObject);
         }
     }

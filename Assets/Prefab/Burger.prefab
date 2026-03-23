@@ -142,6 +142,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7918335002988649766, guid: 6bca37576ce2d9f47aebe2975557ba94, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 55d069b81327f4463ac4efcbad86f7c8, type: 2}
+    - target: {fileID: 882129737928793925, guid: 6bca37576ce2d9f47aebe2975557ba94, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7c63a41ba409e44798878ec34df31169, type: 2}
     - target: {fileID: 919132149155446097, guid: 6bca37576ce2d9f47aebe2975557ba94, type: 3}
       propertyPath: m_Name
       value: Burger
@@ -150,6 +158,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 6317578925029434746, guid: 6bca37576ce2d9f47aebe2975557ba94, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6cfc1162eb58f4f5f99ab9b4a6d07a7c, type: 2}
+    - target: {fileID: 7202271454713460447, guid: 6bca37576ce2d9f47aebe2975557ba94, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 66f42d37a33794469b6ac687253416f1, type: 2}
+    - target: {fileID: 8100320773420232829, guid: 6bca37576ce2d9f47aebe2975557ba94, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6cfc1162eb58f4f5f99ab9b4a6d07a7c, type: 2}
+    - target: {fileID: 8442510506162454399, guid: 6bca37576ce2d9f47aebe2975557ba94, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b4518890c225644a3b9d41867c5343ec, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
